@@ -40,3 +40,24 @@ class MovieAPI:
     except requests.RequestException as e:
       print(f'Error while searching movies: {e}')
       return []
+          
+  def get_poster_pixmap(self, poster_path):
+    """
+    Download a movie poster and return it as a QPixmap.
+
+    :param poster_path: str - The relative path to the poster image.
+    :return: QPixmap or None if failed.
+    """
+    from PySide6.QtGui import QPixmap
+    if not poster_path:
+      return None
+    url = f"https://image.tmdb.org/t/p/w200{poster_path}"
+    try:
+      response = requests.get(url)
+      response.raise_for_status()
+      pixmap = QPixmap()
+      pixmap.loadFromData(response.content)
+      return pixmap
+    except requests.RequestException as e:
+      print(f"Error loading poster: {e}")
+      return None
