@@ -1,6 +1,7 @@
 from cryptography.fernet import Fernet
 import getpass
 import os
+import json
 
 # -------------------- GENERATE A KEY (Run this once & save the key) --------------------
 def generate_key():
@@ -23,7 +24,6 @@ def load_key():
 def encrypt_file(filename):
   key = load_key()
   fernet = Fernet(key)
-  
   # Read the original file
   with open(filename, 'rb') as file:
     file_data = file.read()
@@ -91,11 +91,15 @@ def decrypt_file():
     encrypted_data = file.read()
   decrypted_data = fernet.decrypt(encrypted_data)  # Decrypt the data
   
-  # Save decrypted file
-  with open('data.txt', 'wb') as file:
-    file.write(decrypted_data)
+  # Convert decrypted bytes into dictionary
+  decoded_data = decrypted_data.decode('utf-8')
+  json_data = json.loads(decoded_data)
   
-  print('🔓 File decrypted and saved as "data.txt".')
+  # Save to JSON file
+  with open('data.json', 'w') as f:
+    json.dump(json_data, f, indent=4)
+  
+  print('🔓 File decrypted and saved as "data.json".')
   
   
   # Decrypt hashed_password file
@@ -112,11 +116,11 @@ def decrypt_file():
 # -------------------- MAIN MENU --------------------
 if __name__ == '__main__':
   while True:
-    choice = input('\nChoose an option:\n1️⃣  -> Generate Key (Run once)\n2️⃣  -> Encrypt data.txt\n3️⃣  -> Decrypt data.enc\n4️⃣  -> Exit\n> ')
+    choice = input('\nChoose an option:\n1️⃣  -> Generate Key (Run once)\n2️⃣  -> Encrypt data.json\n3️⃣  -> Decrypt data.enc\n4️⃣  -> Exit\n> ')
     if choice == '1':
       generate_key()
     elif choice == '2':
-      encrypt_file('data.txt')
+      encrypt_file('data.json')
     elif choice == '3':
       decrypt_file()
     elif choice == '4':
