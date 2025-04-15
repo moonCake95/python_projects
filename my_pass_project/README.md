@@ -20,15 +20,15 @@ A secure and simple password manager written in Python, using Fernet encryption 
 
 ```
 Secure Password Manager
-├── main.py                     # Main GUI application
-├── secure_data.py              # Encrypt/Decrypt script
-├── hash_password.py (optional) # Used once to generate hashed master password
-├── README.md                   # This documentation
-└── ~/.your_hidden_dir/         # Secure storage directory (hidden)
-    ├── .secret.key             # Encryption key
-    ├── .master_password        # Master password file
-    └── secure_data             # Directory for encrypted data
-        ├── data.enc            # Encrypted passwords file
+├── main.py                      # Main GUI application
+├── secure_data.py               # Encrypt/Decrypt script
+├── hash_password.py (optional)  # Used once to generate hashed master password
+├── README.md                    # This documentation
+└── ~/.your_hidden_dir/          # Secure storage directory (hidden)
+    ├── .secret.key              # Encryption key
+    ├── .master_password         # Master password file
+    └── secure_data              # Directory for encrypted data
+        ├── data.enc             # Encrypted passwords file
         └── hashed_password.txt  # Optional hashed master password (temporary file)
 ```
 
